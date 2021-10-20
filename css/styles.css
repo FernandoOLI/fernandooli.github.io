@@ -11474,7 +11474,7 @@ body {
 
 #mainNav {
   min-height: 3.5rem;
-  background-color: #fff;
+  background-color: rgb(0, 0, 0);
 }
 #mainNav .navbar-toggler {
   font-size: 80%;
@@ -11554,6 +11554,9 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.15rem;
   border: 0;
+}
+.foto{
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 5%, #000 100%), url("../assets/img/data.jpg");
 }
 
 .masthead {
