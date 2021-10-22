@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="Fernando Oliveira Pereira" />
+    <title>Codes</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">Voltar</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#projects">Projetos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#signup">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead-->
+
+    <!-- About-->
+    <section class="projects-section bg-light" id="projects">
+        <div class="container px-4 px-lg-5">
+            <!-- Featured Project Row-->
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                <div class="col-xl-8 col-lg-5">
+                    <div class="featured-text text-center text-lg-left">
+                        <h4>Misty</h4>
+                        <p class="text-black-50 mb-0">Projeto Normalização de Imagens e disponibilização em MongoDB</p>
+                    </div>
+                </div>
+                <div class="col-xl-10 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/fluxo.JPG"
+                        alt="..." /></div>
+
+            </div>
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+<h4>Problema: </h4>
+                    <p> Quando se usa modelos de Inteligência Artificial (IA), onde o input são imagens, faz se necessário o processamento dessas imagens. O processamento de imagens é uma das partes mais onerosas, sendo necessário grande número de recursos computacionais. </p>
+
+                        <h4>Objetivo:</h4>
+                        <p>O objetivo deste projeto é deixar já disponibilizado os dados das imagens já processados. Evitando o processamento das imagens junto com a execução dos modelos de IA e permitindo vários modelos consultar a mesma fonte, com as imagens processadas e parametrizadas.
+                    </p>
+<h4>Descrição:</h4>
+<p>O projeto pode ser dividido em 3 partes:</p>
+    <p>1- As imagens no formato original são salvas em um container da Azure; </p>
+        <p>2- O código, construído em python, faz o download em lotes para processar as imagens;</p>
+            <p>3- Os resultados são salvos no Mongo Atlas, para consumo futuramente;	</p>
+</p>
+<p>Variáveis da aplicação:<br />
+    ENVIROMENT -> Variável que determina se a aplicação irá rodar localmente ou com os dados da Azure ou MongoDb Atlas. Para local inserir o valor ‘Local’, para usar a Azure e MonngoDb Atlas inserir o valor ‘Cluster’.<br />
+    CLIENT_DATABASE_ONLINE -> <br />
+    DATABASE_ONLINE -><br />
+    ONLINE_ACCESS -><br />
+    COLLECTION_ONLINE -> Nome da collection no MongoDb Atlas.<br />
+    AZURE_STORAGE_CONNECTION_STRING -><br />
+    AZURE_CONTAINER -><br />
+    AZURE_BACKUP -><br />
+    AZURE_NAME -><br />
+    TEMP_PATH -><br />
+    DATABASE_USER -><br />
+    PATH_BASE_ONLINE -><br />
+    PATH_BASE_SINGLE_ONLINE -><br />
+    CLIENT_DATABASE_LOCAL -><br />
+    DATABASE_LOCAL -><br />
+    COLLECTION_LOCAL -> Nome da collection no MongoDb local.<br />
+    PATH_BASE_LOCAL -><br />
+    PATH_BASE_SINGLE_LOCAL -><br />
+    BASEWIDTH -> Valor de referência de largura na conversão da imagem.<br />
+    BASEHEIGHT -> Valor de referência de altura na conversão da imagem.<br />
+    MIN_HEIGHT -> Valor mínimo da referência de largura na conversão da imagem.<br />
+    MIN_WIDTH -> Valor mínimo da referência de altura na conversão da imagem.<br />
+    NORMALIZE -> Valor booleano para indicar a normalização, true ocorre a normalização, false não ocorre.<br />
+    CONTADOR -> Valor definido para saber quantas imagens serão processadas simultaneamente. <br />
+    QUANTIDADE -> Quantidade de imagens que irão para o arquivo de amostra zip.</p>
+    
+    <p>Todos os parâmetros descritos são necessários e precisam estar salvos no arquivo env, localizado na raiz do projeto. Um exemplo de variável: AZURE_CONTAINER=container</p>
+    
+    <p>Existe a opção de executar localmente ou usando o cluster. Para ser localmente, a variável ENVIROMENT, deve ser setado com o valor local. A partir disso será usado os campos: CLIENT_DATABASE_LOCAL, DATABASE_LOCAL, COLLECTION_LOCAL e PATH_BASE_LOCAL.<br />
+    Caso seja para usar o Azure e o MongoDb Atlas, a variável ENVIROMENT, deve ser setado com o valor cluster. Com os seguintes campos: CLIENT_DATABASE_ONLINE, DATABASE_ONLINE, ONLINE_ACCESS, COLLECTION_ONLINE, AZURE_STORAGE_CONNECTION_STRING, AZURE_CONTAINER, AZURE_BACKUP e AZURE_NAME.<br />
+    Os dados de entrada, imagens, estão salvos em um container na Azure. O nome pode ser definido pela variável AZURE_CONTAINER. <br />
+    A aplicação ao ser executada, irá listar as imagens contidas no container, somente os nomes. A seguir irá selecionar uma quantidade, definida pelo parâmetro CONTADOR. Uma a uma será executada os seguintes passos.<br />
+    Pode-se optar em normalizar o array final, fazendo variar de 0 a 1, ou deixar variando de 0 a 255. Caso opte pela normalização, o campo NORMALIZE deve ser True, caso contrário False.</p>
+    
+    <h4>Conversão para escala de cinza:</h4>
+    A conversão para escala de cinza é feita antes da redução de tamanho, foi feito nessa ordem pois em testes, foi notado além de redução no tempo de processamento, cerca de 30%, redução no gasto computacional.<br />
+    Para converter para a escala de cinza foi multiplicado as camadas RGB por 0.2989, 0.5870, 0.1140 e a soma é o valor na escala de cinza.</p>
+    
+    <h4>Redução do tamanho da imagem: </h4>
+    Usando de base os campos BASEWIDTH, BASEHEIGHT, MIN_HEIGHT, MIN_WIDTH como parâmetros é feita a redução da imagem. Os campos BASEWIDTH, BASEHEIGHT são para determinar os tamanhos de altura e largura que a imagem irá ficar. A preferência foi dada a largura, caso a largura original seja maior que a BASEWIDTH, será feito a redução mantendo o valor de BASEWIDTH como largura e a altura será calculada. Caso o resultado da altura seja menor que MIN_WIDTH, o retorno será BASEWIDTH e MIN_WIDTH. Isso se deve para evitar que imagens que possuem uma dimensão muito discrepante não sejam difíceis de trabalhar posteriormente.<br />
+    Para a largura é feito a mesma lógica descrita anteriormente, entretanto mudando os respectivos campos.</p>
+    
+<h4>
+    Conversão imagem para array:</h4>
+    Usando a biblioteca do numpy foi feita a conversão para array, np.array, como a imagem já está convertida em escala de cinza, o resultado é uma matriz de apenas uma dimensão.</p>
+    
+<h4>Criação do objeto:</h4>
+     O objeto que será criado tem como parâmetros:<br />
+    name -> nome do arquivo com extensão.<br />
+    data -> data do dia da conversão.<br />
+    width -> largura da imagem definida pela função de redução de tamanho.<br />
+    height -> altura da imagem definida pela função de redução de tamanho.<br />
+    array -> imagem convertida em array.</p>
+    
+<h4>Armazenar no MongoDb:</h4>
+    Ao terminar a criação dos objetos para a quantidade de imagens definidas no contador, será salvo no MongoDb Atlas no formato de documento.</p>
+    
+<h4>Mover pacotes de imagens para backup:</h4>
+    As imagens listadas, que foram convertidas e salvas no MongoDb, serão movidas do container principal para o container de backup. Os parâmetros para definir os nomes são AZURE_CONTAINER e AZURE_BACKUP.</p>
+    
+<h4>Validar se terminou o processo:</h4>
+    Finalizando esse cliclo, ocorre a validação da lista gerada no começo da aplicação. Os arquivos que foram processados, serão removidos da lista. Quando a lista estiver vazia o processo terá sido encerrado.</p>
+    
+<h4>Criação de arquivo com amostras:</h4>
+    Antes de encerrar o processamento, é gerado um arquivo zip, nele contém algumas imagens de amostra. As imagens são escolhidas aleatoriamente e podem ser definidas a quantidade pelo parâmetro QUANTIDADE_IMAGEM e respeitando a regra de amostragem.</p>
+    
+    <p> <br />
+    </p>
+                </div>
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="footer bg-black small text-center text-white-50">
+        <div class="container px-4 px-lg-5">Copyright &copy; Fernando Oliveira Pereira 2021</div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+
+</html>
