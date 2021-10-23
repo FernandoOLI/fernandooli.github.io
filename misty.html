@@ -83,12 +83,14 @@
                 <p>Todos os parâmetros precisam estar salvos no arquivo '.env', localizado
                     na raiz do projeto. Um exemplo de variável: AZURE_CONTAINER=container</p>
                 &emsp;&emsp;ENVIROMENT -> Variável que determina se a aplicação irá rodar localmente ou com os dados da
-                Azure ou MongoDb Atlas. Para local inserir o valor ‘Local’ para Azure e ‘Cluster’ para MongoDb
+                Azure ou MongoDb Atlas. <br />
+                &emsp;&emsp;Para local, inserir o valor ‘Local’ para Azure e ‘Cluster’ para MongoDb
                 Atlas<br />
                 <p>
                 <h5>Configurações para usar o MongoDb Atlas:</h5>
                 &emsp;&emsp;CLIENT_DATABASE_ONLINE -> String de conexão com o MongoDb Atlas no formato:
-                mongodb+srv://"DATABASE_USER":"ACCESS"@clusterimage id/"DATABASE_ONLINE" <br />
+                <br />
+                &emsp;&emsp;mongodb+srv://"DATABASE_USER":"ACCESS"@clusterimage id/"DATABASE_ONLINE" <br />
                 &emsp;&emsp;DATABASE_ONLINE -> Nome do database no MongoDb Atlas.<br />
                 &emsp;&emsp;ONLINE_ACCESS -> senha de usuário do database. <br />
                 &emsp;&emsp;COLLECTION_ONLINE -> Nome da collection no MongoDb Atlas.<br />
@@ -101,8 +103,8 @@
 
                 <p>
                 <h5>Configurações para usar o MongoDb localmente:</h5>
-                &emsp;&emsp;PATH_BASE_ONLINE -><br />
-                &emsp;&emsp;PATH_BASE_SINGLE_ONLINE -><br />
+                &emsp;&emsp;PATH_BASE_ONLINE -> Pasta <br />
+                &emsp;&emsp;PATH_BASE_SINGLE_ONLINE -> <br />
                 &emsp;&emsp;CLIENT_DATABASE_LOCAL -> String de conexão com o MongoDb local<br />
                 &emsp;&emsp;DATABASE_LOCAL -> Nome do database local.<br />
                 &emsp;&emsp;COLLECTION_LOCAL -> Nome da collection no MongoDb local.<br />
@@ -124,28 +126,31 @@
 
 
                 <p>Existe a opção de executar localmente ou usando o cluster. Para ser localmente, a variável
-                    ENVIROMENT, deve ser setado com o valor local. A partir disso será usado os campos:
+                    ENVIROMENT, deve ser inicializada com o valor 'local'. A partir disso, serão usados os campos:
                     CLIENT_DATABASE_LOCAL, DATABASE_LOCAL, COLLECTION_LOCAL e PATH_BASE_LOCAL.<br />
-                    Caso seja para usar o Azure e o MongoDb Atlas, a variável ENVIROMENT, deve ser setado com o valor
-                    cluster. Com os seguintes campos: CLIENT_DATABASE_ONLINE, DATABASE_ONLINE, ONLINE_ACCESS,
+                    Para usar o Azure e o MongoDb Atlas, a variável ENVIROMENT, deve ser inicializada com o valor
+                    'cluster'. Com os seguintes campos: CLIENT_DATABASE_ONLINE, DATABASE_ONLINE, ONLINE_ACCESS,
                     COLLECTION_ONLINE, AZURE_STORAGE_CONNECTION_STRING, AZURE_CONTAINER, AZURE_BACKUP e
                     AZURE_NAME.<br />
                     Os dados de entrada, imagens, estão salvos em um container na Azure. O nome pode ser definido pela
                     variável AZURE_CONTAINER. <br />
-                    A aplicação ao ser executada, irá listar as imagens contidas no container, somente os nomes. A
-                    seguir irá selecionar uma quantidade, definida pelo parâmetro CONTADOR. Uma a uma será executada os
-                    seguintes passos.<br />
-                    Pode-se optar em normalizar o array final, fazendo variar de 0 a 1, ou deixar variando de 0 a 255.
-                    Caso opte pela normalização, o campo NORMALIZE deve ser True, caso contrário False.</p>
+                    A aplicação ao ser executada, irá listar somente os nomes das imagens contidas no container. Em
+                    seguida, deve ser escolhido a quantidade de imagens a serem processadas, a qual é definida pelo
+                    parâmetro
+                    CONTADOR.<br /> <br />
+                <h5><u>Serão executados os seguintes passos:</u></h5><br />
+                Observação: Pode-se optar em normalizar o array final, fazendo variar de 0 a 1, ou deixar variando de 0
+                a 255.
+                Caso opte pela normalização, o campo NORMALIZE deve ser True, caso contrário False.</p><br />
 
-                <h4>Conversão para escala de cinza:</h4>
+                <h5><b>1. Conversão para escala de cinza:</b></h5>
                 A conversão para escala de cinza é feita antes da redução de tamanho, foi feito nessa ordem pois em
                 testes, foi notado além de redução no tempo de processamento, cerca de 30%, redução no gasto
                 computacional.<br />
                 Para converter para a escala de cinza foi multiplicado as camadas RGB por 0.2989, 0.5870, 0.1140 e a
                 soma é o valor na escala de cinza.</p>
 
-                <h4>Redução do tamanho da imagem: </h4>
+                <h5><b>2. Redução do tamanho da imagem: </b></h5>
                 Usando de base os campos BASEWIDTH, BASEHEIGHT, MIN_HEIGHT, MIN_WIDTH como parâmetros é feita a redução
                 da imagem. Os campos BASEWIDTH, BASEHEIGHT são para determinar os tamanhos de altura e largura que a
                 imagem irá ficar. A preferência foi dada a largura, caso a largura original seja maior que a BASEWIDTH,
@@ -156,8 +161,7 @@
                 Para a largura é feito a mesma lógica descrita anteriormente, entretanto mudando os respectivos campos.
                 </p>
 
-                <h4>
-                    Conversão imagem para array:</h4>
+                <h5><b>3. Conversão imagem para array:</b></h5>
                 Usando a biblioteca do numpy foi feita a conversão para array, np.array, como a imagem já está
                 convertida em escala de cinza, o resultado é uma matriz de apenas uma dimensão.</p>
                 A imagem de teste convertida para matriz multidimensional foi esta:</p>
@@ -174,7 +178,7 @@
                 Posteriormente foi normalizada a saída dividindo os valores por 255.</p>
 
 
-                <h4>Criação do objeto:</h4>
+                <h5><b>4. Criação do objeto:</b></h5>
                 O objeto que será criado tem como parâmetros:<br />
                 name -> nome do arquivo com extensão.<br />
                 data -> data do dia da conversão.<br />
@@ -182,20 +186,20 @@
                 height -> altura da imagem definida pela função de redução de tamanho.<br />
                 array -> imagem convertida em array.</p>
 
-                <h4>Armazenar no MongoDb:</h4>
+                <h5><b>5. Armazenar no MongoDb:</b></h5>
                 Ao terminar a criação dos objetos para a quantidade de imagens definidas no contador, será salvo no
                 MongoDb Atlas no formato de documento.</p>
 
-                <h4>Mover pacotes de imagens para backup:</h4>
+                <h5><b>6. Mover pacotes de imagens para backup:</b></h5>
                 As imagens listadas, que foram convertidas e salvas no MongoDb, serão movidas do container principal
                 para o container de backup. Os parâmetros para definir os nomes são AZURE_CONTAINER e AZURE_BACKUP.</p>
 
-                <h4>Validar se terminou o processo:</h4>
+                <h5><b>7. Validar se terminou o processo:</b></h5>
                 Finalizando esse cliclo, ocorre a validação da lista gerada no começo da aplicação. Os arquivos que
                 foram processados, serão removidos da lista. Quando a lista estiver vazia o processo terá sido
                 encerrado.</p>
 
-                <h4>Criação de arquivo com amostras:</h4>
+                <h5><b>8. Criação de arquivo com amostras:</b></h5>
                 Antes de encerrar o processamento, é gerado um arquivo zip, nele contém algumas imagens de amostra. As
                 imagens são escolhidas aleatoriamente e podem ser definidas a quantidade pelo parâmetro
                 QUANTIDADE_IMAGEM e respeitando a regra de amostragem.</p>
