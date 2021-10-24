@@ -48,14 +48,22 @@
             <!-- Featured Project Row-->
             <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
                 <div class="col-xl-8 col-lg-5">
-                    <div class="featured-text text-center text-lg-left">
-                        <h3>Misty</h3>
-                        <p class="text-black-50 mb-0">Projeto Normalização de Imagens e disponibilização em MongoDB</p>
-                        </br>
+                    <div class="featured-text text-center text-lg-left row">
+                        <div class="col-11">
+                            <h3>Misty</h3>
+                            <p class="text-black-50 mb-0">Projeto Normalização de Imagens e disponibilização em MongoDB
+                            </p>
+                            </br>
+                        </div>
+                        <div class="col-1">
+                            <a class="mx-5" href="https://github.com/FernandoOLI/ImageConverterInMongoDB"
+                                target="_blank"><i class="fab fa-github fa-4x"></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xl-10 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/fluxo.JPG"
-                        alt="..." /></div>
+                <div class="col-xl-10 col-lg-7">
+                    <img class="img-fluid mb-3 mb-lg-0" src="assets/img/fluxo.JPG" alt="..." />
+                </div>
 
             </div>
             <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
@@ -103,7 +111,7 @@
 
                 <p>
                 <h5>Configurações para usar o MongoDb localmente:</h5>
-                &emsp;&emsp;PATH_BASE_ONLINE -> Pasta <br />
+                &emsp;&emsp;PATH_BASE_ONLINE -> <br />
                 &emsp;&emsp;PATH_BASE_SINGLE_ONLINE -> <br />
                 &emsp;&emsp;CLIENT_DATABASE_LOCAL -> String de conexão com o MongoDb local<br />
                 &emsp;&emsp;DATABASE_LOCAL -> Nome do database local.<br />
@@ -151,14 +159,15 @@
                 soma é o valor na escala de cinza.</p>
 
                 <h5><b>2. Redução do tamanho da imagem: </b></h5>
-                Usando de base os campos BASEWIDTH, BASEHEIGHT, MIN_HEIGHT, MIN_WIDTH como parâmetros é feita a redução
-                da imagem. Os campos BASEWIDTH, BASEHEIGHT são para determinar os tamanhos de altura e largura que a
-                imagem irá ficar. A preferência foi dada a largura, caso a largura original seja maior que a BASEWIDTH,
-                será feito a redução mantendo o valor de BASEWIDTH como largura e a altura será calculada. Caso o
-                resultado da altura seja menor que MIN_WIDTH, o retorno será BASEWIDTH e MIN_WIDTH. Isso se deve para
-                evitar que imagens que possuem uma dimensão muito discrepante não sejam difíceis de trabalhar
-                posteriormente.<br />
-                Para a largura é feito a mesma lógica descrita anteriormente, entretanto mudando os respectivos campos.
+                Usando de base os campos BASEWIDTH, BASEHEIGHT, MIN_HEIGHT, MIN_WIDTH como parâmetros, é feita a redução
+                da imagem. Os campos BASEWIDTH, BASEHEIGHT são para determinar os tamanhos de altura e largura da saída
+                da imagem.
+                </br>
+                Considerando a largura como medida de referência, se sua medida original é maior que a BASEWIDTH, será
+                feita a redução mantendo o valor de BASEWIDTH como largura e a altura será calculada. Similarmente , se
+                a altura é menor que MIN_HEIGHT, o retorno será BASEWIDTH e MIN_HEIGHT. A mesma lógica é utilizada
+                quando a altura é considerada a medida de referência. Esse processo é realizado para evitar que imagens
+                que possuem grandes dimensões não sejam um obstáculo para utilização.
                 </p>
 
                 <h5><b>3. Conversão imagem para array:</b></h5>
@@ -179,7 +188,7 @@
 
 
                 <h5><b>4. Criação do objeto:</b></h5>
-                O objeto que será criado tem como parâmetros:<br />
+                O objeto que será criado apresentará os seguintes parâmetros:<br />
                 name -> nome do arquivo com extensão.<br />
                 data -> data do dia da conversão.<br />
                 width -> largura da imagem definida pela função de redução de tamanho.<br />
@@ -188,18 +197,18 @@
 
                 <h5><b>5. Armazenar no MongoDb:</b></h5>
                 Ao terminar a criação dos objetos para a quantidade de imagens definidas no contador, será salvo no
-                MongoDb Atlas no formato de documento.</p>
+                MongoDB Atlas no formato de documento.<br />
+                As imagens listadas, que foram convertidas e salvas no MongoDB, serão movidas do container principal
+                para o container de backup. <br />
+                Os parâmetros para definir os nomes são AZURE_CONTAINER e AZURE_BACKUP.
+                Finalizando esse ciclo, ocorre a validação da lista gerada no começo da aplicação (como é feita?).</p>
 
-                <h5><b>6. Mover pacotes de imagens para backup:</b></h5>
-                As imagens listadas, que foram convertidas e salvas no MongoDb, serão movidas do container principal
-                para o container de backup. Os parâmetros para definir os nomes são AZURE_CONTAINER e AZURE_BACKUP.</p>
-
-                <h5><b>7. Validar se terminou o processo:</b></h5>
+                <h5><b>6. Validação do processo:</b></h5>
                 Finalizando esse cliclo, ocorre a validação da lista gerada no começo da aplicação. Os arquivos que
                 foram processados, serão removidos da lista. Quando a lista estiver vazia o processo terá sido
                 encerrado.</p>
 
-                <h5><b>8. Criação de arquivo com amostras:</b></h5>
+                <h5><b>7. Criação de arquivo com amostras:</b></h5>
                 Antes de encerrar o processamento, é gerado um arquivo zip, nele contém algumas imagens de amostra. As
                 imagens são escolhidas aleatoriamente e podem ser definidas a quantidade pelo parâmetro
                 QUANTIDADE_IMAGEM e respeitando a regra de amostragem.</p>
